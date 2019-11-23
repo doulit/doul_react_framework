@@ -39,6 +39,7 @@ class Router extends Component {
     render() {
         return (
             <BrowserRouter>
+                <Route path="/" component={Main} />
                 <Route path="/Main" component={Main} />
                 <Route path="/lionking" component={Main} />
                 <Route path="/spiderman" component={Main} />
