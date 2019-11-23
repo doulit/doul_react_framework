@@ -1,5 +1,8 @@
 # doul_react_framework
 
+## 주소
+    http://ec2-54-180-118-173.ap-northeast-2.compute.amazonaws.com/
+
 ## 구성
 
 * 파이썬 3.7+
