@@ -3,5 +3,6 @@ djangorestframework == 3.10.3
 requests
 
 pyodbc
-https://github.com/d-b/django-pyodbc-azure
+#django-pyodbc-azure
+#https://github.com/d-b/django-pyodbc-azure
 #../assets/azure-2.2-mssql2005.zip
