@@ -1,4 +1,7 @@
--r common.txt
+django~=2.2.0
+djangorestframework == 3.10.3
+requests
 
-django-debug-toolbar
-
+pyodbc
+https://github.com/d-b/django-pyodbc-azure
+#../assets/azure-2.2-mssql2005.zip
