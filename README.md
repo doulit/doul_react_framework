@@ -21,10 +21,9 @@
 
 
 ### python 가상(venv)
-
-python -m venv venv
-윈도우
-venv\Scripts\activate
-리눅스
-source venv/bin/activate
+    python -m venv venv
+    윈도우
+    venv\Scripts\activate
+    리눅스
+    source venv/bin/activate
 
