@@ -1,51 +1,24 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter, Route} from 'react-router-dom'
+// import { Router as BrowserRouter, Route, IndexRoute, Link, browserHistory } from 'react-router';
 import Main from './pages/Main'
+import NoMatch from './pages/NoMatch'
 import SearchAppBar from './components/SearchAppBar'
-import './settings/default'
-const routes = [
-    {
-        path: '/',
-        menuName: '수업관리',
-        menuId: 'sub1',
-        children: [
-            {
-                path: '/LectureSchedule',
-                menuName: '공학 교수계획표 관리',
-                key: '1',
-            },
-        ],
-    },
-    {
-        path: '/',
-        menuName: 'sub2',
-        menuId: 'sub2',
-    },
-    {
-        path: '/',
-        menuName: 'sub3',
-        menuId: 'sub3',
-    },
-];
-
+import SwipeableTemporaryDrawer from './components/SwipeableTemporaryDrawer'
 
 
 class Router extends Component {
     constructor(props) {
         super(props);
     }
-
-
-
     render() {
-        return (            
-            <BrowserRouter>   
-                <SearchAppBar/>    
-                <Route path="/" component={Main} />
-                <Route path="/Main" component={Main} />
-                <Route path="/lionking" component={Main} />
-                <Route path="/spiderman" component={Main} />
+        return ( 
+            <BrowserRouter>
+                <SearchAppBar/>
+                <Route path="/" exact component={Main}/>                    
+                <Route path="/Left" component={SwipeableTemporaryDrawer}/>               
             </BrowserRouter>
+
         )
     }
 }
