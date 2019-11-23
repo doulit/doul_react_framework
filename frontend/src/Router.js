@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route} from 'react-router-dom'
-// import { Router as BrowserRouter, Route, IndexRoute, Link, browserHistory } from 'react-router';
 import Main from './pages/Main'
 import NoMatch from './pages/NoMatch'
 import SearchAppBar from './components/SearchAppBar'
