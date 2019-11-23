@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import Main from './pages/Main'
-
+import SearchAppBar from './components/SearchAppBar'
+import './settings/default'
 const routes = [
     {
         path: '/',
@@ -37,8 +38,9 @@ class Router extends Component {
 
 
     render() {
-        return (
-            <BrowserRouter>
+        return (            
+            <BrowserRouter>   
+                <SearchAppBar/>    
                 <Route path="/" component={Main} />
                 <Route path="/Main" component={Main} />
                 <Route path="/lionking" component={Main} />

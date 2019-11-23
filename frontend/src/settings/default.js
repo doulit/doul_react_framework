@@ -1,0 +1,1 @@
+const gv_app_name = '(주) 도울정보기술'
