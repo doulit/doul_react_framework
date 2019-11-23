@@ -108,7 +108,7 @@ DATABASES = {
     #     'OPTIONS': {
     #         'driver': 'ODBC Driver 11 for SQL Server',
     #     },
-    },
+    # },
 }
 
 
