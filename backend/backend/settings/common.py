@@ -91,23 +91,23 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': join(BASE_DIR, 'db.sqlite3'),
     },
-    'mssql': {
-        # 'ENGINE': os.environ.get('MSSQL_ENGINE'),
-        # 'HOST': os.environ.get('MSSQL_HOST'),
-        # 'NAME': os.environ.get('MSSQL_NAME'),
-        # 'USER': os.environ.get('MSSQL_USER'),
-        # 'PASSWORD': os.environ.get('MSSQL_PASSWORD'),
-        # 'OPTIONS': {
-        #     'driver': os.environ.get('MSSQL_DRIVER'),
-        # },
-        'ENGINE': 'sql_server.pyodbc',
-        'HOST': '192.168.2.67',
-        'NAME': 'EDUCERT',
-        'USER': 'apperadm',
-        'PASSWORD': 'apperadm',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 11 for SQL Server',
-        },
+    # 'mssql': {
+    #     # 'ENGINE': os.environ.get('MSSQL_ENGINE'),
+    #     # 'HOST': os.environ.get('MSSQL_HOST'),
+    #     # 'NAME': os.environ.get('MSSQL_NAME'),
+    #     # 'USER': os.environ.get('MSSQL_USER'),
+    #     # 'PASSWORD': os.environ.get('MSSQL_PASSWORD'),
+    #     # 'OPTIONS': {
+    #     #     'driver': os.environ.get('MSSQL_DRIVER'),
+    #     # },
+    #     'ENGINE': 'sql_server.pyodbc',
+    #     'HOST': '192.168.2.67',
+    #     'NAME': 'EDUCERT',
+    #     'USER': 'apperadm',
+    #     'PASSWORD': 'apperadm',
+    #     'OPTIONS': {
+    #         'driver': 'ODBC Driver 11 for SQL Server',
+    #     },
     },
 }
 
