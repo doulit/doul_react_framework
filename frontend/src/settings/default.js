@@ -18,7 +18,7 @@ const gv_app = {
 if (window.location.href.indexOf('localhost') > -1){
     gv_app.app_url = dev_url;
     gv_app.app_type = "L";
-}else if (window.location.href.indexOf('54.180.118.173') > -1){
+}else if (window.location.href.indexOf('54.180.118.173') > -1 || window.location.href.indexOf('ec2-54-180-118-173.ap-northeast-2.compute.amazonaws.com') > -1){
     gv_app.app_url = qas_url;
     gv_app.app_type = "Q";
 }else if (window.location.href.indexOf('localhost') > -1){
