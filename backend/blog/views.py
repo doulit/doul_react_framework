@@ -21,13 +21,21 @@ def detail(request, question_str):
     return execute_and_serialize(qs)
 
 def save(request):
-    if request.method == 'POST':
-        # Feedback 객체 생성
-        fb = Blog(Title = 'Kim', Content = 'kim@test.com')
-        
-        # 새 객체 INSERT
-        fb.save()
+    print(request.method)
+    # if request.method == 'POST':
+    # Feedback 객체 생성
+    
+    # 일괄 delete 요청
+    queryset = Blog.objects.all()
+    queryset.delete() 
+    # 일괄 delete 요청
 
-        qs = Blog.objects.all()
+    fb = Blog(Title = 'Kim', Content = 'kim@test.com', name = 'Mehmet', surname = 'Baran')
+    fb2 = Blog(Title = 'Kim', Content = 'kim@test.com', name = 'Zerya Betül', surname = 'Baran')
+    # 새 객체 INSERT
+    fb.save()
+    fb2.save()
 
-        return execute_and_serialize(qs)
+    qs = Blog.objects.all()
+
+    return execute_and_serialize(qs)

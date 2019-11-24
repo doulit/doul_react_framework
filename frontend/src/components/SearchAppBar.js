@@ -18,7 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-import gv_app from '../settings/default.js';
+import * as service from '../settings/default';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -137,7 +137,7 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            {gv_app.app_name}
+            {service.gv_app.app_name}
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

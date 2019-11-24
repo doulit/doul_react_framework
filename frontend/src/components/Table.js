@@ -30,22 +30,19 @@ function MaterialTableDemo(props) {
 
   // componentDidMount, componentDidUpdate와 비슷합니다
   useEffect(() => {    
-    console.log(props.source)    
-    console.log(props.source[0].fields)    
-    // setState(prevState => {
-    //   const data = props.source;
-    //   // data.splice(data.indexOf(oldData), 1);
-    //   return { ...prevState, data };
-    // });
-
-  });
+    console.log('마운트 될 때만 실행됩니다.');  
+    setState(prevState => {
+        const data = props.source;      
+        return { ...prevState, data };
+    });
+  },[]);
   
   return (
     <MaterialTable
       title="Editable Example"
       columns={state.columns}
       data={state.data}
-      // data={props.source}
+    //   data={props.source}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
