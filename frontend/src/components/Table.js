@@ -6,16 +6,7 @@ import * as service from '../settings/default';
 function MaterialTableDemo(props) {
   
   const [state, setState] = useState({
-    columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
-    ],
+    columns: [],
     data: [],
     // data: [
     //   { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
@@ -32,17 +23,17 @@ function MaterialTableDemo(props) {
   useEffect(() => {    
     console.log('마운트 될 때만 실행됩니다.');  
     setState(prevState => {
-        const data = props.source;      
-        return { ...prevState, data };
+        const data = props.source;                /** 데이터*/
+        const columns = props.columns;            /** 컬럼명*/
+        return { ...prevState, data, columns };
     });
   },[]);
   
   return (
     <MaterialTable
-      title="Editable Example"
+      title={props.title}
       columns={state.columns}
       data={state.data}
-    //   data={props.source}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
@@ -53,9 +44,11 @@ function MaterialTableDemo(props) {
                 data.push(newData);
                 return { ...prevState, data };
               });
+
+              service.saveData(newData,'insert','/blog/save/');              
             }, 600);
           }),
-        onRowUpdate: (newData, oldData) =>
+        onRowUpdate: (newData, oldData) =>          
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
@@ -65,6 +58,8 @@ function MaterialTableDemo(props) {
                   data[data.indexOf(oldData)] = newData;
                   return { ...prevState, data };
                 });
+
+                service.saveData(newData,'update','/blog/save/');              
               }
             }, 600);
           }),
@@ -77,6 +72,8 @@ function MaterialTableDemo(props) {
                 data.splice(data.indexOf(oldData), 1);
                 return { ...prevState, data };
               });
+
+              service.saveData(oldData,'delete','/blog/save/');              
             }, 600);
           }),
       }}

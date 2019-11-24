@@ -44,10 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third apps
     'debug_toolbar',
-    'blog',
-    'polls',
+    
     # local apps
-    # 'planner',
+    'blog',
     
 ]
 
