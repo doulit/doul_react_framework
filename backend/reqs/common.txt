@@ -5,7 +5,7 @@ requests
 django-debug-toolbar
 pymysql
 mysqlclient
-pyodbc
+#pyodbc
 #django-pyodbc-azure
 #https://github.com/d-b/django-pyodbc-azure
 #../assets/azure-2.2-mssql2005.zip
