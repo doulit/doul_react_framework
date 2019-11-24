@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     # third apps
     'debug_toolbar',
     'blog',
+    'polls',
     # local apps
     # 'planner',
+    
 ]
 
 MIDDLEWARE = [

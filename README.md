@@ -29,7 +29,8 @@
 
 
 ### 리눅스
-    sudo apt-get install libmysqlclient-dev
+    #sudo apt-get install libmysqlclient-dev
+    sudo apt-get install python-pip python3.8-dev libmysqlclient-dev libssl-dev
     sudo pip3 install mysqlclient
 ### 윈도우 mysqlclient 설치
     https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient

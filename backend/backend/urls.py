@@ -6,10 +6,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('common/', include('common.urls')),                                            #공통
+    path('polls/', include('polls.urls')),                                        
+    path('blog/', include('blog.urls')),                                        
 
-    # #계획표
-    # path('planner/lectureSchedule/', include('planner.url.lectureSchedule_urls')),      #교수계획표(공학)
 
 
 ]

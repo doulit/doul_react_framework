@@ -2,6 +2,8 @@ django~=2.2.0
 djangorestframework == 3.10.3
 requests
 
+pymysql
+mysqlclient
 pyodbc
 #django-pyodbc-azure
 #https://github.com/d-b/django-pyodbc-azure
