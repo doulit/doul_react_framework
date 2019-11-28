@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third apps
     'debug_toolbar',
+    'rest_framework', #추가
     
     # local apps
     'blog',

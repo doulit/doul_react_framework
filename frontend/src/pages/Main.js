@@ -12,6 +12,7 @@ class Main extends Component {
         data: [],
         isloading: true,
         columns: [
+          { title: 'id' , field: 'id'},
           { title: 'Name', field: 'name' },
           { title: 'Surname', field: 'surname' },
           { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
@@ -27,9 +28,8 @@ class Main extends Component {
 		this.callSearchApi();
   }
   callSearchApi() {
-    const data = service.search('/blog/sel/1/').then(res => {       
-      const listData = service.getData(res.data);  
-      this.setState({data: listData,isloading: false}); 			
+    const data = service.search('/blog/sel/all/').then(res => {       
+      this.setState({data: res.data,isloading: false}); 			
     });
   }
 

@@ -21,8 +21,14 @@ class Blog(models.Model):
         validators = [lnglat_validator], # 함수를 넘겨서 유효성 검사 실행
         help_text='경도, 위도 포맷으로 입력')
 
+    # def __str__(self):
+    #     return "%s %s" %(self.name, self.text)
+
     def __str__(self):
-        return "%s %s" %(self.name, self.text)
+        return self.name
+
+    # def as_dict(self):
+    #     return {'name'+str(self.id) : self.name}
 
     def choice_set(self):
         qs_list = Blog.objects.filter(id=self.pk)

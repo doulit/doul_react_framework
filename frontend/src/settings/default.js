@@ -39,10 +39,11 @@ export function search(url) {
 }
 
 export function getData(data){
-    const listData = [];        
+    const listData = [];  
+    console.log(data)      
     const list = data.map(
         info => (
-          listData.push(info.fields)
+            listData.push(info)
         )
     );  
     return listData;
