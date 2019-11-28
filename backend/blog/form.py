@@ -24,12 +24,3 @@ class blog_Form(forms.ModelForm):
         if commit:
             self.instance.delete()
         return self.instance
-
-    ''' 내부적으로 구현되어 있음 (멤버변수 인스턴스)
-    향후 수정 기능 구현시 활용
-    def save(self, commit=True):
-        self.instance = Blog(**self.cleaned_data)
-        if commit:
-            self.instance.save()
-        return self.instance
-    '''

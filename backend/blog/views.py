@@ -6,21 +6,20 @@ from backend.utils import errors_message,success_message
 from .form import blog_Form
 from .models import Blog
 from backend.utils import execute,execute_and_serialize
-from .serializers import PostSerializer
+from .serializers import BlogSerializer
 from rest_framework import generics
 
-
 # Create your views here.
-class search(generics.ListCreateAPIView):
+class MasterBlog(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = BlogSerializer
 
-class DetailPost(generics.RetrieveUpdateDestroyAPIView):
+class DetailBlog(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = BlogSerializer
 
 @api_view
-def save(request):    
+def SaveBlog(request):    
     form = blog_Form(request.JSON)
     if request.method == 'POST':
         if form.is_valid():

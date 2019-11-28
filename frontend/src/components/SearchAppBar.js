@@ -18,6 +18,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import StarBorder from '@material-ui/icons/StarBorder';
+
 import * as service from '../settings/default';
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,22 +81,29 @@ const useStyles = makeStyles(theme => ({
   fullList: {
     width: 'auto',
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 export default function SearchAppBar() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+  
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   const toggleDrawer = (side, open) => event => {    
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
 
@@ -112,12 +124,35 @@ export default function SearchAppBar() {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        {['All mail', 'Trash', 'Spam'].map((text, index) => 
+              (<ListItem button key={text}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={text} />   
+                <ExpandMore />
+                <ListItemText primary="Starred" />
+              </ListItem>) 
+        )}
+
+
+        {/* {['All mail', 'Trash', 'Spam'].map((text, index) => {if(text === 'Trash' ? 
+          (<Collapse in={open} timeout="auto" unmountOnExit>
+            <ListItem button key={text}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={text} />   
+                <ExpandMore />
+                <ListItemText primary="Starred" />
+              </ListItem>
+          </Collapse>
+          ) : 
+          (          
+              <ListItem button key={text}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={text} />   
+                <ExpandMore />
+                <ListItemText primary="Starred" />
+              </ListItem>
+          )} 
+        )} */}
       </List>
     </div>
   );

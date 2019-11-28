@@ -9,10 +9,7 @@ def lnglat_validator(value):
 
 # Create your models here.
 class Blog(models.Model):
-    Title = models.CharField('TITLE', max_length=50)
-    Content = models.CharField('CONTENT', max_length=50)
-    createDate = models.DateTimeField('createDate',auto_now=True)
-
+    id = models.AutoField(primary_key=True)
     name = models.CharField('name', max_length=50, null=True)
     surname = models.CharField('surname', max_length=50, null=True)
     birthYear = models.IntegerField('birthYear', null=True)
@@ -21,11 +18,8 @@ class Blog(models.Model):
         validators = [lnglat_validator], # 함수를 넘겨서 유효성 검사 실행
         help_text='경도, 위도 포맷으로 입력')
 
-    # def __str__(self):
-    #     return "%s %s" %(self.name, self.text)
-
-    def __str__(self):
-        return self.name
-
-    # def as_dict(self):
-    #     return {'name'+str(self.id) : self.name}
+class Menu(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('name', max_length=50, null=True)
+    code = models.CharField('code', max_length=50, null=True)
+    level = models.CharField('level', max_length=50, null=True)

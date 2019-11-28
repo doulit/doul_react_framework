@@ -9,11 +9,6 @@ const gv_app = {
     app_type: "L",
 };
 
-const axios_headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json;charset=UTF-8'
-};
-
 /**
  * Url 설정
  *      L : 로컬
@@ -56,21 +51,5 @@ export function saveData(data, type, model){
         data: data
     });
 }
-
-// var Button = React.createClass({
-
-//     rNumberGen: function(){
-//         let rNumbers = [Math.random(), Math.random(), Math.random()];
-//     },
-
-//     render: function(){
-//         return(
-//                 <TouchableHighlight onPress={this.rNumberGen} style={styles.center}>
-//                         <Text style={styles.button}>Generate!</Text>
-//                 </TouchableHighlight>
-//             );
-//     }
-
-// });
 
 export { gv_app }
