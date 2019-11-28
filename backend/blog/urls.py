@@ -9,5 +9,9 @@ urlpatterns = [
     path('sel/', views.MasterBlog.as_view()),
     path('sel/<int:pk>/', views.DetailBlog.as_view()),
     path('save/', views.SaveBlog),	
+
+    path('menu/sel/', views.MasterMenu.as_view()),
+    path('menu/sel/<int:pk>/', views.DetailMenu.as_view()),
+    path('menu/save/', views.SaveMenu),
 ]
 

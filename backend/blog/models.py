@@ -9,7 +9,7 @@ def lnglat_validator(value):
 
 # Create your models here.
 class Blog(models.Model):
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     name = models.CharField('name', max_length=50, null=True)
     surname = models.CharField('surname', max_length=50, null=True)
     birthYear = models.IntegerField('birthYear', null=True)
@@ -19,7 +19,7 @@ class Blog(models.Model):
         help_text='경도, 위도 포맷으로 입력')
 
 class Menu(models.Model):
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     name = models.CharField('name', max_length=50, null=True)
     code = models.CharField('code', max_length=50, null=True)
-    level = models.CharField('level', max_length=50, null=True)
+    level = models.IntegerField('level', null=True)
