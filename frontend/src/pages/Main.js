@@ -40,7 +40,7 @@ class Main extends Component {
               source={this.state.data}
               columns={this.state.columns}
               title="조회화면"
-              url="/blog/save/"
+              model="blog"
             />
 
           </div>

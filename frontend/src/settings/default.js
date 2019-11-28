@@ -49,10 +49,10 @@ export function getData(data){
     return listData;
 }
 
-export function saveData(data, type, url){
+export function saveData(data, type, model){    
     return axios({
-        method:'post',
-        url: gv_app.app_url+url+type+"/",
+        method:type,
+        url: gv_app.app_url+"/"+model+"/save/",
         data: data
     });
 }

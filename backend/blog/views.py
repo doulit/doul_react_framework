@@ -20,20 +20,23 @@ class DetailPost(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
 
 @api_view
-def save(request, question_str):
-    # print(request.JSON)
+def save(request):    
     form = blog_Form(request.JSON)
     if request.method == 'POST':
         if form.is_valid():
-            if question_str == "delete":
-                blog = form.delete(commit=False)
-                blog.delete()
-            else:
-                blog = form.save(commit=False)
-                blog.save()
+            blog = form.save(commit=False)
+            blog.save()
             return success_message()      
         else:
             print(errors_message(form))
             return errors_message(form)
+    elif request.method == 'DELETE':
+        if form.is_valid():            
+            blog = form.delete(commit=False)
+            blog.delete()
+            return success_message()      
+        else:
+            print(errors_message(form))
+            return errors_message(form)        
     else:
         return errors_message(form)

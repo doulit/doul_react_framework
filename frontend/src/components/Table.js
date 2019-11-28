@@ -45,7 +45,7 @@ function MaterialTableDemo(props) {
                 return { ...prevState, data };
               });
 
-              service.saveData(newData,'insert',props.url);              
+              service.saveData(newData,'post',props.model);              
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>          
@@ -59,7 +59,7 @@ function MaterialTableDemo(props) {
                   return { ...prevState, data };
                 });
 
-                service.saveData(newData,'update',props.url);              
+                service.saveData(newData,'post',props.model);              
               }
             }, 600);
           }),
@@ -73,7 +73,7 @@ function MaterialTableDemo(props) {
                 return { ...prevState, data };
               });
 
-              service.saveData(oldData,'delete',props.url);              
+              service.saveData(oldData,'delete',props.model);              
             }, 600);
           }),
       }}

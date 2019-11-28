@@ -8,8 +8,6 @@ app_name = 'blog'
 urlpatterns = [
     path('sel/', views.search.as_view()),
     path('sel/<int:pk>/', views.DetailPost.as_view()),
-    path('save/<str:question_str>/', views.save),	
-
-
+    path('save/', views.save),	
 ]
 
