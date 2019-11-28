@@ -50,30 +50,6 @@ export function getData(data){
 }
 
 export function saveData(data, type, url){
-    console.log("::saveData::");
-    console.log(data);
-    let options = {
-        method: 'POST',
-        url: gv_app.app_url+url+type+"/",
-        headers: axios_headers,
-        data: {
-            id: 1
-          }
-    };
-    // let response = axios(options);
-    // let responseOK = response && response.status === 200 && response.statusText === 'OK';
-    // if (responseOK) {
-    //     let data = response.data;
-    //     // do something with data
-    // }
-
-    // return response;
-    // return axios.post(gv_app.app_url+url+type+"/", {
-    //             data: {
-    //                 data
-    //             }
-    //         });
-
     return axios({
         method:'post',
         url: gv_app.app_url+url+type+"/",

@@ -29,10 +29,3 @@ class Blog(models.Model):
 
     # def as_dict(self):
     #     return {'name'+str(self.id) : self.name}
-
-    def choice_set(self):
-        qs_list = Blog.objects.filter(id=self.pk)
-        # return execute(qs_list)
-        return qs_list
-
-
