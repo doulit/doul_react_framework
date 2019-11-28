@@ -95,9 +95,16 @@ export default function SearchAppBar() {
     bottom: false,
     right: false,
   });
+
+  const menuArray = ['All mail', 'Trash', 'Spam'];
   
   const handleClick = () => {
     setOpen(!open);
+  };
+
+  const menuClick = (side, open) => event => {
+    
+    toggleDrawer(side,open);
   };
 
   const toggleDrawer = (side, open) => event => {    
@@ -111,8 +118,8 @@ export default function SearchAppBar() {
     <div
       className={classes.list}
       role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
+      // onClick={toggleDrawer(side, false)}
+      // onKeyDown={toggleDrawer(side, false)}
     >
       <List>
         {['메인', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -124,35 +131,25 @@ export default function SearchAppBar() {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => 
-              (<ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />   
-                <ExpandMore />
-                <ListItemText primary="Starred" />
-              </ListItem>) 
-        )}
-
-
-        {/* {['All mail', 'Trash', 'Spam'].map((text, index) => {if(text === 'Trash' ? 
-          (<Collapse in={open} timeout="auto" unmountOnExit>
-            <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />   
-                <ExpandMore />
-                <ListItemText primary="Starred" />
-              </ListItem>
-          </Collapse>
-          ) : 
-          (          
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />   
-                <ExpandMore />
-                <ListItemText primary="Starred" />
-              </ListItem>
-          )} 
-        )} */}
+        {menuArray.map((text, index) => text === 'Trash' 
+            ? ( <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
+                      <ListItemIcon>
+                        <StarBorder />
+                      </ListItemIcon>
+                      <ListItemText primary="Starred" />
+                    </ListItem>
+                  </List>
+                </Collapse>
+              ) // 서브메뉴만들기
+            : ( <ListItem button key={text} onClick={handleClick}>
+                  <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemText primary={text} />   
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem> 
+            )
+          )}
       </List>
     </div>
   );
