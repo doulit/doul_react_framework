@@ -45,7 +45,7 @@ function MaterialTableDemo(props) {
                 return { ...prevState, data };
               });
 
-              service.saveData(newData,'insert','/blog/save/');              
+              service.saveData(newData,'insert',props.url);              
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>          
@@ -59,7 +59,7 @@ function MaterialTableDemo(props) {
                   return { ...prevState, data };
                 });
 
-                service.saveData(newData,'update','/blog/save/');              
+                service.saveData(newData,'update',props.url);              
               }
             }, 600);
           }),
@@ -73,7 +73,7 @@ function MaterialTableDemo(props) {
                 return { ...prevState, data };
               });
 
-              service.saveData(oldData,'delete','/blog/save/');              
+              service.saveData(oldData,'delete',props.url);              
             }, 600);
           }),
       }}

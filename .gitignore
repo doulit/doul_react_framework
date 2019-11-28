@@ -6,3 +6,4 @@ env.bat
 venv
 .DS_Store
 .vscode
+yarn.lock

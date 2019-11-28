@@ -6,8 +6,8 @@ from . import views
 app_name = 'blog'
 
 urlpatterns = [
-	
-    path('sel/', views.search),
+	path('<int:question_id>/', views.search),
+    path('sel/<str:question_str>/', views.search),
     path('save/<str:question_str>/', views.save),	
 
 

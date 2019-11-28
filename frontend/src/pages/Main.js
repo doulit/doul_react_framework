@@ -27,9 +27,8 @@ class Main extends Component {
 		this.callSearchApi();
   }
   callSearchApi() {
-    const data = service.search('/blog/sel/').then(res => {       
+    const data = service.search('/blog/sel/1/').then(res => {       
       const listData = service.getData(res.data);  
-      console.log(listData);
       this.setState({data: listData,isloading: false}); 			
     });
   }
@@ -42,6 +41,7 @@ class Main extends Component {
               source={this.state.data}
               columns={this.state.columns}
               title="조회화면"
+              url="/blog/save/"
             />
 
           </div>

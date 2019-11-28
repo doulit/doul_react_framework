@@ -27,6 +27,7 @@
     리눅스
     source venv/bin/activate
 
+    deactivate
 
 ### 리눅스
     #sudo apt-get install libmysqlclient-dev
@@ -36,6 +37,8 @@
     https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient
     이곳에서 자신의 python 버전(cp), 파이썬 비트(win)에 맞는 mysqlclient를 다운로드 받는다.
 
-    (venv) C:\Users\temp\Downloads> pip install {다운 받은 whl 파일 이름}
+    (venv) C:\Users\temp\Downloads> pip install {다운 받은 whl 파일 이름}    
+### 맥북 mysqlclient 에러시(ssl에러시)
+    sudo env LDFLAGS="-I/usr/local/opt/openssl@1.1/include -L/usr/local/opt/openssl@1.1/lib" pip install mysqlclient
 
 

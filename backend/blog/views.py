@@ -1,33 +1,26 @@
 from django.shortcuts import get_object_or_404, render
 from django.core import serializers
 from django.http import HttpResponse,JsonResponse
-from .models import Blog
-from backend.utils import execute,execute_and_serialize
+from backend.decorators import api_view
+from backend.utils import errors_message
+from .form import blog_Form
 
 # Create your views here.
-def search(request):
-    
-    qs = Blog.objects.all()
-
-    return execute_and_serialize(qs)
-
-
+@api_view
+def search(request, question_str):
+    form = blog_Form(request.POST)
+    if form.is_valid():        
+        return form.fetch()
+    else:
+        return errors_message(form)
+@api_view
 def save(request, question_str):
-    print(request.method)
-    # if request.method == 'POST':
-    # Feedback 객체 생성
-    
-    # # 일괄 delete 요청
-    # queryset = Blog.objects.all()
-    # queryset.delete() 
-    # # 일괄 delete 요청
+    form = blog_Form(request.JSON)
+    if request.method == 'POST':
+        if form.is_valid():
+            return form.save()        
+        else:
+            return errors_message(form)
+    else:
+        return errors_message(form)
 
-    # fb = Blog(Title = 'Kim', Content = 'kim@test.com', name = 'Mehmet', surname = 'Baran')
-    # fb2 = Blog(Title = 'Kim', Content = 'kim@test.com', name = 'Zerya Betül', surname = 'Baran')
-    # # 새 객체 INSERT
-    # fb.save()
-    # fb2.save()
-
-    qs = Blog.objects.all()
-
-    return execute_and_serialize(qs)

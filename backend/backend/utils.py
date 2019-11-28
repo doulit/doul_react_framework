@@ -12,3 +12,11 @@ def execute_and_serialize(qs):
     qs_list = serializers.serialize('json', qs)
     print(qs_list)
     return HttpResponse(qs_list, content_type="text/json-comment-filtered")    
+
+def errors_message(form):
+    return_message = OrderedDict()
+    return_message['code'] = -1
+    return_message['msg'] = form.errors
+    
+    return json.dumps(return_message,ensure_ascii=False)
+
