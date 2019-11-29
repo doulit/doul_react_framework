@@ -16,8 +16,13 @@
 
     Django 서버구동
     uwsgi 
+        -> https://brownbears.tistory.com/16
         -> https://wayhome25.github.io/django/2018/03/04/django-deploy-04-uwsgi/
+        
+        
+        uwsgi --http :8000 --module backend.wsgi
 
+        uwsgi --http :8000 --home ~/.pyenv/versions/mysite-env --chdir /home/ubuntu/doul_react_framework/backend -w mysite.wsgi
 ### Model 수정
     python manage.py makemigrations 
     python manage.py migrate

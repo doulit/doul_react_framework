@@ -1,6 +1,7 @@
 django~=2.2.0
 djangorestframework == 3.10.3
 requests
+uwsgi 
 
 django-debug-toolbar
 pymysql
