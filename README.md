@@ -10,6 +10,8 @@
 * 리액트 16+
 
 ## 서버설정 참고
+    nginx 재시작 : sudo service nginx restart
+
     리액트_서버구동
     nginx 
         -> https://codechacha.com/ko/deploy-react-with-nginx/
@@ -21,8 +23,8 @@
         
         
         uwsgi --http :8000 --module backend.wsgi
-
-        uwsgi --http :8000 --home ~/.pyenv/versions/mysite-env --chdir /home/ubuntu/doul_react_framework/backend -w mysite.wsgi
+        
+        uwsgi --http :8000 --home /home/ubuntu/doul_react_framework/backend/venv --chdir /home/ubuntu/doul_react_framework/backend/ --wsgi-file /home/ubuntu/doul_react_framework/backend/backend/wsgi.py
 ### Model 수정
     python manage.py makemigrations 
     python manage.py migrate
