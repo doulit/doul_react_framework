@@ -18,12 +18,6 @@ class Blog_Form(forms.ModelForm):
         for field_name, field in self.fields.items():            
             field.required = False
     
-    # def save(self, commit=True):
-    #     self.instance = Blog(**self.cleaned_data)
-    #     if commit:
-    #         self.instance.save()
-    #     return self.instance
-    
     def delete(self, commit=True):
         self.instance = Blog(**self.cleaned_data)
         if commit:
@@ -43,12 +37,6 @@ class Menu_Form(forms.ModelForm):
         )
         for field_name, field in self.fields.items():
             field.required = False
-    
-    # def save(self, commit=True):
-    #     self.instance = Menu(**self.cleaned_data)
-    #     if commit:
-    #         self.instance.save()
-    #     return self.instance
     
     def delete(self, commit=True):
         self.instance = Menu(**self.cleaned_data)
