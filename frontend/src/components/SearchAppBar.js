@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,6 +22,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import StarBorder from '@material-ui/icons/StarBorder';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 
 import * as service from '../settings/default';
 const useStyles = makeStyles(theme => ({
@@ -86,9 +88,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 export default function SearchAppBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [menuData, setMenuData] = React.useState();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -96,8 +100,6 @@ export default function SearchAppBar() {
     right: false,
   });
 
-  const menuArray = ['All mail', 'Trash', 'Spam'];
-  
   const handleClick = () => {
     setOpen(!open);
   };
@@ -113,6 +115,16 @@ export default function SearchAppBar() {
     }
     setState({ ...state, [side]: open });
   };
+  
+  const callSearchApi = (e) => {
+    const data = service.search('/blog/menu/sel/').then(res => {       
+      setMenuData( res.data );
+    });
+  };
+
+  useEffect(() => {
+    callSearchApi();
+  }, []);
 
   const sideList = side => (
     <div
@@ -121,35 +133,35 @@ export default function SearchAppBar() {
       // onClick={toggleDrawer(side, false)}
       // onKeyDown={toggleDrawer(side, false)}
     >
+      {/* <Divider /> */}
       <List>
-        {['메인', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {menuArray.map((text, index) => text === 'Trash' 
-            ? ( <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
-                      <ListItemIcon>
-                        <StarBorder />
-                      </ListItemIcon>
-                      <ListItemText primary="Starred" />
-                    </ListItem>
-                  </List>
-                </Collapse>
-              ) // 서브메뉴만들기
-            : ( <ListItem button key={text} onClick={handleClick}>
-                  <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />   
-                  {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem> 
+        { menuData ? (
+            menuData.map((info, index) => info.level > 1 
+              ? ( <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
+                        <ListItemIcon>
+                          <MailIcon />
+                          {/* <StarBorder /> */}
+                        </ListItemIcon>
+                        <ListItemText primary={info.name} />
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                ) // 서브메뉴만들기
+              : ( <ListItem button key={info.code} onClick={handleClick}>
+                    <ListItemIcon>{info.level === 1 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={info.name} />   
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem> 
+                  
+              )
             )
-          )}
+          ) : (
+            <div></div>
+          )
+
+          }
       </List>
     </div>
   );

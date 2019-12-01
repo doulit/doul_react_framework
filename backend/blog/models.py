@@ -22,4 +22,7 @@ class Menu(models.Model):
     # id = models.AutoField(primary_key=True)
     name = models.CharField('name', max_length=50, null=True)
     code = models.CharField('code', max_length=50, null=True)
+    menu_parent = models.CharField('menu_parent', max_length=50, null=True)
+    link = models.CharField('link', max_length=200, null=True)
     level = models.IntegerField('level', null=True)
+    sort = models.IntegerField('sort', null=True)

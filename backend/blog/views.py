@@ -49,11 +49,11 @@ def SaveBlog(request):
 ##################################################
 
 class MasterMenu(generics.ListCreateAPIView):
-    queryset = Menu.objects.all()
+    queryset = Menu.objects.all().order_by('code','sort')
     serializer_class = MenuSerializer
 
 class DetailMenu(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Menu.objects.all()
+    queryset = Menu.objects.all().order_by('code','sort')
     serializer_class = MenuSerializer
 
 @api_view

@@ -14,7 +14,10 @@ class Main extends Component {
         columns: [
           { title: 'name', field: 'name' },
           { title: 'code', field: 'code' },
+          { title: 'menu_parent', field: 'menu_parent' },
+          { title: 'link', field: 'link' },
           { title: 'level', field: 'level', type: 'numeric' },
+          { title: 'sort', field: 'sort', type: 'numeric' },
         ]
       }
   }
