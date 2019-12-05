@@ -44,9 +44,17 @@ export function getData(data){
     return listData;
 }
 
-export function saveData(data, type, model){    
+export function saveData(data, model){    
     return axios({
-        method:type,
+        method:"post",
+        url: gv_app.app_url+"/"+model+"/save/",
+        data: data
+    });
+}
+
+export function deleteData(data, model){    
+    return axios({
+        method:"delete",
         url: gv_app.app_url+"/"+model+"/save/",
         data: data
     });

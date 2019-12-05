@@ -41,6 +41,7 @@ class Main extends Component {
               columns={this.state.columns}
               title="조회화면"
               model="blog"
+              search="/blog/sel/"
             />
 
           </div>

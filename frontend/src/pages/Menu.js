@@ -39,6 +39,7 @@ class Main extends Component {
               columns={this.state.columns}
               title="조회화면"
               model="blog/menu"
+              search="/blog/menu/sel/"
             />
 
           </div>

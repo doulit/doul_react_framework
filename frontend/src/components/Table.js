@@ -28,6 +28,15 @@ function MaterialTableDemo(props) {
         return { ...prevState, data, columns };
     });
   },[]);
+
+  const callSearchApi = () => {
+    const data = service.search(props.search).then(res => {             
+      setState(prevState => {
+          const data = res.data;                /** 데이터*/
+          return { ...prevState, data };
+      }); 			
+    });
+  };
   
   return (
     <MaterialTable
@@ -42,10 +51,13 @@ function MaterialTableDemo(props) {
               setState(prevState => {
                 const data = [...prevState.data];
                 data.push(newData);
-                return { ...prevState, data };
+                return { ...prevState, data };                
               });
 
-              service.saveData(newData,'post',props.model);              
+              service.saveData(newData,props.model).then(res => {
+                callSearchApi();
+              });   
+              
             }, 600);
           }),
         onRowUpdate: (newData, oldData) =>          
@@ -59,7 +71,9 @@ function MaterialTableDemo(props) {
                   return { ...prevState, data };
                 });
 
-                service.saveData(newData,'post',props.model);              
+                service.saveData(newData,props.model).then(res => {
+                  callSearchApi();
+                });              
               }
             }, 600);
           }),
@@ -73,7 +87,9 @@ function MaterialTableDemo(props) {
                 return { ...prevState, data };
               });
 
-              service.saveData(oldData,'delete',props.model);              
+              service.deleteData(oldData,props.model).then(res => {
+                callSearchApi();
+              });                
             }, 600);
           }),
       }}
