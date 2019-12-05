@@ -23,7 +23,7 @@ class DetailBlog(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BlogSerializer
 
 
-class SaveBlog2(views.View):
+class SaveBlog(views.View):
     @method_decorator(csrf_exempt)
     # @api_view
     def dispatch(self, request, *args, **kwargs):
@@ -35,11 +35,9 @@ class SaveBlog2(views.View):
         
         return json.dumps(return_message,ensure_ascii=False)
     def post(self, request):
-        form = Blog_Form(request.JSON)
-        if request.JSON.get('id') != None:
-            post = get_object_or_404(Blog,pk=request.JSON['id'])
-            form = Blog_Form(request.JSON, instance=post)
-        elif form.is_valid():
+        data = json.loads(request.body)
+        form = Blog_Form(data)
+        if form.is_valid():
             blog = form.save(commit=False)
             blog.save()
             return success_message()      
@@ -47,11 +45,9 @@ class SaveBlog2(views.View):
             print(errors_message(form))
             return errors_message(form)
     def delete(self, request):
-        form = Blog_Form(request.JSON)
-        if request.JSON.get('id') != None:
-            post = get_object_or_404(Blog,pk=request.JSON['id'])
-            form = Blog_Form(request.JSON, instance=post)
-        elif form.is_valid():            
+        data = json.loads(request.body)
+        form = Blog_Form(data)
+        if form.is_valid():            
             blog = form.delete(commit=False)
             blog.delete()
             return success_message()      
@@ -60,7 +56,7 @@ class SaveBlog2(views.View):
             return errors_message(form)     
 
 @api_view
-def SaveBlog(request):    
+def SaveBlog2(request):    
     form = Blog_Form(request.JSON)
     if request.method == 'POST':
         if request.JSON.get('id') != None:
