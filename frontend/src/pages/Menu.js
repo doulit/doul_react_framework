@@ -10,6 +10,7 @@ class Main extends Component {
       super(props);
       this.state = {
         data: [],
+        model:"blog/menu",
         isloading: true,
         columns: [
           { title: 'name', field: 'name' },
@@ -25,7 +26,7 @@ class Main extends Component {
 		this.callSearchApi();
   }
   callSearchApi() {
-    const data = service.search('/blog/menu/sel/').then(res => {       
+    const data = service.search(`/${this.state.model}/sel/`).then(res => {       
       this.setState({data: res.data,isloading: false}); 			
     });
   }
@@ -38,8 +39,8 @@ class Main extends Component {
               source={this.state.data}
               columns={this.state.columns}
               title="조회화면"
-              model="blog/menu"
-              search="/blog/menu/sel/"
+              model={this.state.model}
+              search={`/${this.state.model}/sel/`}
             />
 
           </div>

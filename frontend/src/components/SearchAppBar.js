@@ -119,6 +119,7 @@ export default function SearchAppBar() {
   const callSearchApi = (e) => {
     const data = service.search('/blog/menu/sel/').then(res => {       
       setMenuData( res.data );
+        
     });
   };
 
@@ -134,37 +135,40 @@ export default function SearchAppBar() {
       // onKeyDown={toggleDrawer(side, false)}
     >
       {/* <Divider /> */}
+      
       <List>
-        { menuData ? (
-            menuData.map((info, index) => info.level > 1 
-              ? ( <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
-                        <ListItemIcon>
-                          <MailIcon />
-                          {/* <StarBorder /> */}
-                        </ListItemIcon>
-                        <ListItemText primary={info.name} />
-                      </ListItem>
-                    </List>
-                  </Collapse>
-                ) // 서브메뉴만들기
-              : ( <ListItem button key={info.code} onClick={handleClick}>
-                    <ListItemIcon>{info.level === 1 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={info.name} />   
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                  </ListItem> 
-                  
-              )
-            )
-          ) : (
-            <div></div>
-          )
-
-          }
+        {menuCreate(menuData,side)}
       </List>
     </div>
   );
+
+  const menuCreate = (data,side) => {
+      return ( data ? (
+          data.map((info, index) => info.level > 1 
+            ? ( <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
+                      <ListItemIcon>
+                        <MailIcon />
+                        {/* <StarBorder /> */}
+                      </ListItemIcon>
+                      <ListItemText primary={info.name} />
+                    </ListItem>
+                  </List>
+                </Collapse>
+              ) // 서브메뉴만들기
+            : ( <ListItem button key={info.code} onClick={handleClick}>
+                  <ListItemIcon>{info.level === 1 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemText primary={info.name} />   
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem> 
+            )
+          )
+        ) : (
+          <div></div>
+        )
+      )
+  };
 
 
   return (
