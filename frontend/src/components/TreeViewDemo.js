@@ -9,6 +9,7 @@ import Collapse from '@material-ui/core/Collapse';
 import { useSpring, animated } from 'react-spring/web.cjs'; // web.cjs is required for IE 11 support
 import * as service from '../settings/default';
 
+let menu = [];
 function MinusSquare(props) {
   return (
     <SvgIcon fontSize="inherit" {...props}>
@@ -78,8 +79,11 @@ const useStyles = makeStyles({
   },
 });
 
+// TreeMenuComponent = async function({props}) {
 function TreeMenuComponent({props}) {
-    const data = props ? props.data : null;
+    menuSearch()
+    // const data = props ? props.data : null;
+    const data = menu;
     const classes = useStyles();
     let listItems = null;
     if(data == null){
@@ -105,13 +109,18 @@ function TreeMenuComponent({props}) {
 
 }
 
-
+function menuSearch() {
+    service.search('/blog/menu/sel/').then(res => {       
+        menu = res.data;
+        return res.data;
+    });
+}
 
 export default function CustomizedTreeView() {
   const classes = useStyles();
   const [menuData, setMenuData] = React.useState();
-  const callSearchApi = (e) => {
-    const data = service.search('/blog/menu/sel/').then(res => {       
+  const callSearchApi = async() => {
+    service.search('/blog/menu/sel/').then(res => {       
         setMenuData( res.data );
         console.log(res.data);
     });
@@ -122,31 +131,29 @@ export default function CustomizedTreeView() {
   }, []);
   
   return (
-    <TreeView
-      className={classes.root}
-      defaultExpanded={['1']}
-      defaultCollapseIcon={<MinusSquare />}
-      defaultExpandIcon={<PlusSquare />}
-      defaultEndIcon={<CloseSquare />}
-    >
-      <StyledTreeItem nodeId="1" label="Main">
-        <StyledTreeItem nodeId="2" label="Hello" />
-        <StyledTreeItem nodeId="3" label="Subtree with children">
-          <StyledTreeItem nodeId="6" label="Hello" />
-          <StyledTreeItem nodeId="7" label="Sub-subtree with children">
-            <StyledTreeItem nodeId="9" label="Child 1" />
-            <StyledTreeItem nodeId="10" label="Child 2" />
-            <StyledTreeItem nodeId="11" label="Child 3" />
-          </StyledTreeItem>
-          <StyledTreeItem nodeId="8" label="Hello" />
-        </StyledTreeItem>
-        <StyledTreeItem nodeId="4" label="World" />
-        <StyledTreeItem nodeId="5" label="Something something" />
-      </StyledTreeItem>
-      
-      
-      {/* {TreeMenuComponent(menuData)} */}
-      <TreeMenuComponent data={menuData}/>
-    </TreeView>
+    // <TreeView
+    //   className={classes.root}
+    //   defaultExpanded={['1']}
+    //   defaultCollapseIcon={<MinusSquare />}
+    //   defaultExpandIcon={<PlusSquare />}
+    //   defaultEndIcon={<CloseSquare />}
+    // >
+    //   <StyledTreeItem nodeId="1" label="Main">
+    //     <StyledTreeItem nodeId="2" label="Hello" />
+    //     <StyledTreeItem nodeId="3" label="Subtree with children">
+    //       <StyledTreeItem nodeId="6" label="Hello" />
+    //       <StyledTreeItem nodeId="7" label="Sub-subtree with children">
+    //         <StyledTreeItem nodeId="9" label="Child 1" />
+    //         <StyledTreeItem nodeId="10" label="Child 2" />
+    //         <StyledTreeItem nodeId="11" label="Child 3" />
+    //       </StyledTreeItem>
+    //       <StyledTreeItem nodeId="8" label="Hello" />
+    //     </StyledTreeItem>
+    //     <StyledTreeItem nodeId="4" label="World" />
+    //     <StyledTreeItem nodeId="5" label="Something something" />
+    //   </StyledTreeItem>      
+    // </TreeView>
+
+    <TreeMenuComponent data={menuData}/>
   );
 }
