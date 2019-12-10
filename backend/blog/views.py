@@ -7,10 +7,10 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django import views
 import json
-from .serializers import BlogSerializer,MenuSerializer
+from .serializers import BlogSerializer,MenuSerializer,CategorySerializer
 from rest_framework import generics
 from .form import Blog_Form,Menu_Form
-from .models import Blog,Menu
+from .models import Blog,Menu,Category
 from collections import OrderedDict
 
 # Create your views here.
@@ -137,3 +137,15 @@ def SaveMenu2(request):
             return errors_message(form)        
     else:
         return errors_message(form)
+
+##################################################
+# CATEGORY
+##################################################
+
+class MasterCategory(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class DetailCategory(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

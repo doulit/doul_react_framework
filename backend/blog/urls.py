@@ -13,6 +13,9 @@ urlpatterns = [
     path('menu/sel/', views.MasterMenu.as_view()),
     path('menu/sel/<int:pk>/', views.DetailMenu.as_view()),
     path('menu/save/', views.SaveMenu.as_view()),
+
+    path('category/sel/', views.MasterCategory.as_view()),
+    path('category/sel/<int:pk>/', views.DetailCategory.as_view()),
 ]
 
 

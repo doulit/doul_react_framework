@@ -110,8 +110,9 @@ function TreeMenuComponent({props}) {
 }
 
 function menuSearch() {
-    service.search('/blog/menu/sel/').then(res => {       
+    service.search('/blog/category/sel/').then(res => {       
         menu = res.data;
+        console.log(menu)
         return res.data;
     });
 }
@@ -120,7 +121,7 @@ export default function CustomizedTreeView() {
   const classes = useStyles();
   const [menuData, setMenuData] = React.useState();
   const callSearchApi = async() => {
-    service.search('/blog/menu/sel/').then(res => {       
+    service.search('/blog/category/sel/').then(res => {       
         setMenuData( res.data );
         console.log(res.data);
     });

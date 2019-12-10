@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # third apps
     'debug_toolbar',
     'rest_framework', #추가
+    'mptt',     #django-mptt,  이부분을 추가해야 한다.
     
     # local apps
     'blog',

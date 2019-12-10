@@ -1,9 +1,26 @@
-django~=2.2.0
-djangorestframework == 3.10.3
-requests
 uwsgi 
 virtualenv
 
-django-debug-toolbar
-pymysql
-mysqlclient
+astroid==2.3.3
+certifi==2019.9.11
+chardet==3.0.4
+colorama==0.4.1
+Django==2.2.7
+django-js-asset==1.2.2
+django-mptt==0.10.0
+django-pyodbc-azure==2.2.0.0
+djangorestframework==3.10.3
+idna==2.8
+isort==4.3.21
+lazy-object-proxy==1.4.3
+mccabe==0.6.1
+mysqlclient==1.4.5
+pylint==2.4.4
+PyMySQL==0.9.3
+pyodbc==4.0.27
+pytz==2019.3
+requests==2.22.0
+six==1.13.0
+sqlparse==0.3.0
+urllib3==1.25.6
+wrapt==1.11.2
