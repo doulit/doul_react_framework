@@ -12,6 +12,7 @@ from rest_framework import generics
 from .form import Blog_Form,Menu_Form
 from .models import Blog,Menu,Category
 from collections import OrderedDict
+from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
 
 # Create your views here.
 class MasterBlog(generics.ListCreateAPIView):
@@ -143,9 +144,17 @@ def SaveMenu2(request):
 ##################################################
 
 class MasterCategory(generics.ListCreateAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all()     
     serializer_class = CategorySerializer
 
 class DetailCategory(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+def FetchCategory(request):
+    jane_doe = Category.objects.get(pk=1)
+    category = TreeNodeChoiceField(queryset=Category.objects.all())
+    print(category)
+    return jane_doe.get_children()
+
+

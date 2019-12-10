@@ -36,9 +36,10 @@ class Category(MPTTModel):
     level = models.IntegerField('level', null=True)
     link = models.CharField('link', max_length=200, null=True)
     
- 
+
     class MPTTMeta:
         order_insertion_by = ['name']
+        # node_order_by = ['name']
  
     class Meta:
         unique_together = (('parent', 'slug', ))
@@ -55,6 +56,16 @@ class Category(MPTTModel):
         for i in range(len(ancestors)):
             slugs.append('/'.join(ancestors[:i+1]))
         return slugs
- 
+
+    def get_descendant_count(self): 
+         """ 
+         Returns the number of descendants this model instance has. 
+         """ 
+         if self._mpttfield('right') is None: 
+             # node not saved yet 
+             return 0 
+         else: 
+             return (self._mpttfield('right') - self._mpttfield('left') - 1) // 2 
+
     def __str__(self):
         return self.name        
