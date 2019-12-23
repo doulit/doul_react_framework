@@ -117,7 +117,7 @@ export default function SearchAppBar() {
   };
   
   const callSearchApi = (e) => {
-    const data = service.search('/blog/menu/sel/').then(res => {       
+    const data = service.search('/blog/category/sel/').then(res => {       
       setMenuData( res.data );
         
     });
@@ -144,7 +144,7 @@ export default function SearchAppBar() {
 
   const menuCreate = (data,side) => {
       return ( data ? (
-          data.map((info, index) => info.level > 1 
+          data.map((info, index) => info.link != null 
             ? ( <Collapse in={open} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
@@ -158,7 +158,7 @@ export default function SearchAppBar() {
                 </Collapse>
               ) // 서브메뉴만들기
             : ( <ListItem button key={info.code} onClick={handleClick}>
-                  <ListItemIcon>{info.level === 1 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemIcon>{info.link === null ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                   <ListItemText primary={info.name} />   
                   {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem> 

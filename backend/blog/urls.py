@@ -16,8 +16,6 @@ urlpatterns = [
 
     path('category/sel/', views.MasterCategory.as_view()),
     path('category/sel/<int:pk>/', views.DetailCategory.as_view()),
-    path('category2/sel/', views.FetchCategory),
-
 ]
 
 
