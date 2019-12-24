@@ -29,7 +29,8 @@ import TreeItem from '@material-ui/lab/TreeItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import GmailTreeView from './TreeViewDemo';
+import Link from '@material-ui/core/Link';
+import GmailTreeView from './GmailTreeView';
 import * as service from '../settings/default';
 let menu = []
 const useTreeItemStyles = makeStyles(theme => ({
@@ -224,6 +225,7 @@ export default function SearchAppBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [menuData, setMenuData] = React.useState();
+  const preventDefault = event => event.preventDefault();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -288,9 +290,11 @@ export default function SearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
+          
           <Typography className={classes.title} variant="h6" noWrap>
-            {service.gv_app.app_name}
+            {service.gv_app.app_name}              
           </Typography>
+          
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
