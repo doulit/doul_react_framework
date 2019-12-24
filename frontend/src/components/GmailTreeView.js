@@ -132,7 +132,7 @@ const handleClick = (id,link) => {
     if(link == undefined || link == null){
       window.location.href = "#";    
     }else{
-      // window.location.href = "/";    
+      window.location.href = link;    
     }
     
 
@@ -171,6 +171,7 @@ const getTreeItemsFromData = treeItems => {
 function menuSearch() {
   service.search('/blog/category/sel/').then(res => {       
       menu = res.data;      
+      console.log(menu)
       return res.data;
   });
 }

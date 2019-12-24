@@ -40,7 +40,7 @@ class Main extends Component {
             <Table
               source={this.state.data}
               columns={this.state.columns}
-              title="조회화면"
+              title="메인"
               model={this.state.model}
               search={`/${this.state.model}/sel/`}
             />

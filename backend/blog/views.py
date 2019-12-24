@@ -9,7 +9,7 @@ from django import views
 import json
 from .serializers import BlogSerializer,MenuSerializer,CategorySerializer
 from rest_framework import generics,viewsets
-from .form import Blog_Form,Menu_Form
+from .form import Blog_Form,Menu_Form,Category_Form
 from .models import Blog,Menu,Category
 from collections import OrderedDict
 from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
@@ -149,3 +149,40 @@ class MasterCategory(generics.ListCreateAPIView):
 class DetailCategory(generics.RetrieveUpdateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+class SaveCategory(views.View):
+    @method_decorator(csrf_exempt)
+    # @api_view
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)        
+    def get(self, request):
+        return_message = OrderedDict()
+        return_message['code'] = -1
+        return_message['msg'] = "error"
+        
+        return json.dumps(return_message,ensure_ascii=False)
+    def post(self, request):
+        data = json.loads(request.body)
+        form = Category_Form(data)
+        if data.get('id') != None:
+            post = get_object_or_404(Category,pk=data['id'])
+            form = Category_Form(data, instance=post)
+        if form.is_valid():
+            menu = form.save(commit=False)
+            menu.save()
+            return success_message()      
+        else:
+            print(errors_message(form))
+            return errors_message(form)
+    def delete(self, request):
+        data = json.loads(request.body)
+        form = Category_Form(data)
+        if data.get('id') != None:
+            post = get_object_or_404(Category,pk=data['id'])
+            form = Category_Form(data, instance=post)
+        if form.is_valid():            
+            menu = form.delete(commit=False)
+            menu.delete()
+            return success_message()      
+        else:
+            print(errors_message(form))
+            return errors_message(form)

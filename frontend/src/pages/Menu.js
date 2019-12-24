@@ -10,12 +10,12 @@ class Main extends Component {
       super(props);
       this.state = {
         data: [],
-        model:"blog/menu",
+        model:"blog/category",
         isloading: true,
         columns: [
           { title: 'name', field: 'name' },
           { title: 'code', field: 'code' },
-          { title: 'menu_parent', field: 'menu_parent' },
+          { title: 'parent', field: 'parent' },
           { title: 'link', field: 'link' },
           { title: 'level', field: 'level', type: 'numeric' },
           { title: 'sort', field: 'sort', type: 'numeric' },
@@ -38,7 +38,7 @@ class Main extends Component {
             <Table
               source={this.state.data}
               columns={this.state.columns}
-              title="조회화면"
+              title="메뉴"
               model={this.state.model}
               search={`/${this.state.model}/sel/`}
             />
