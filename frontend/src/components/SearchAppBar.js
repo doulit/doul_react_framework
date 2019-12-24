@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,9 +24,99 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Skeleton from '@material-ui/lab/Skeleton';
-
-
+import TreeView from '@material-ui/lab/TreeView';
+import TreeItem from '@material-ui/lab/TreeItem';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import GmailTreeView from './TreeViewDemo';
 import * as service from '../settings/default';
+let menu = []
+const useTreeItemStyles = makeStyles(theme => ({
+  root: {
+    color: theme.palette.text.secondary,
+    '&:focus > $content': {
+      backgroundColor: `var(--tree-view-bg-color, ${theme.palette.grey[400]})`,
+      color: 'var(--tree-view-color)',
+    },
+  },
+  content: {
+    color: theme.palette.text.secondary,
+    borderTopRightRadius: theme.spacing(2),
+    borderBottomRightRadius: theme.spacing(2),
+    paddingRight: theme.spacing(1),
+    fontWeight: theme.typography.fontWeightMedium,
+    '$expanded > &': {
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  },
+  group: {
+    marginLeft: 0,
+    '& $content': {
+      paddingLeft: theme.spacing(2),
+    },
+  },
+  expanded: {},
+  label: {
+    fontWeight: 'inherit',
+    color: 'inherit',
+  },
+  labelRoot: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0.5, 0),
+  },
+  labelIcon: {
+    marginRight: theme.spacing(1),
+  },
+  labelText: {
+    fontWeight: 'inherit',
+    flexGrow: 1,
+  },
+}));
+
+function StyledTreeItem(props) {
+  const classes = useTreeItemStyles();
+  const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, ...other } = props;
+
+  return (
+    <TreeItem
+      label={
+        <div className={classes.labelRoot}>
+          <LabelIcon color="inherit" className={classes.labelIcon} />
+          <Typography variant="body2" className={classes.labelText}>
+            {labelText}
+          </Typography>
+          <Typography variant="caption" color="inherit">
+            {labelInfo}
+          </Typography>
+        </div>
+      }
+      style={{
+        '--tree-view-color': color,
+        '--tree-view-bg-color': bgColor,
+      }}
+      classes={{
+        root: classes.root,
+        content: classes.content,
+        expanded: classes.expanded,
+        group: classes.group,
+        label: classes.label,
+      }}
+      {...other}
+    />
+  );
+}
+
+StyledTreeItem.propTypes = {
+  bgColor: PropTypes.string,
+  color: PropTypes.string,
+  labelIcon: PropTypes.elementType.isRequired,
+  labelInfo: PropTypes.string,
+  labelText: PropTypes.string.isRequired,
+};
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -89,6 +180,46 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+const TreeViewCreate = (props) => {
+  menuSearch();
+  return (    
+    <TreeViewChild data={menu}/>
+  );
+}
+
+const TreeViewChild = (props) => {
+  
+  const data = props.data;
+  return (    
+    data.map((info) => 
+        <StyledTreeItem
+        nodeId={info.id}
+        labelText={info.name}
+        labelIcon={SupervisorAccountIcon}
+        // labelInfo="90"
+        color="#1a73e8"
+        bgColor="#e8f0fe"
+        > 
+          {
+          (info.subcategories.length > 0) ? (
+              <TreeViewChild data={info.subcategories}/>
+            ) : (
+                console.log("")
+            )
+          }
+          
+        </StyledTreeItem>
+    )
+  );
+}
+
+function menuSearch() {
+  service.search('/blog/category/sel/').then(res => {       
+      menu = res.data;      
+      return res.data;
+  });
+}
+
 export default function SearchAppBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -116,16 +247,6 @@ export default function SearchAppBar() {
     setState({ ...state, [side]: open });
   };
   
-  const callSearchApi = (e) => {
-    const data = service.search('/blog/category/sel/').then(res => {       
-      setMenuData( res.data );
-        
-    });
-  };
-
-  useEffect(() => {
-    callSearchApi();
-  }, []);
 
   const sideList = side => (
     <div
@@ -143,32 +264,15 @@ export default function SearchAppBar() {
   );
 
   const menuCreate = (data,side) => {
-      return ( data ? (
-          data.map((info, index) => info.link != null 
-            ? ( <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItem button className={classes.nested} onClick={toggleDrawer(side, false)}>
-                      <ListItemIcon>
-                        <MailIcon />
-                        {/* <StarBorder /> */}
-                      </ListItemIcon>
-                      <ListItemText primary={info.name} />
-                    </ListItem>
-                  </List>
-                </Collapse>
-              ) // 서브메뉴만들기
-            : ( <ListItem button key={info.code} onClick={handleClick}>
-                  <ListItemIcon>{info.link === null ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                  <ListItemText primary={info.name} />   
-                  {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem> 
-            )
-          )
-        ) : (
-          <div></div>
-        )
+      return ( 
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <GmailTreeView/>
+        </Collapse>
+        
+      
       )
   };
+
 
 
   return (
