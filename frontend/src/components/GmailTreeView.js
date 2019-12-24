@@ -14,6 +14,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import * as service from '../settings/default';
+import { Link } from '@material-ui/core';
 let menu = []
 const useTreeItemStyles = makeStyles(theme => ({
   root: {
@@ -110,36 +111,50 @@ const useStyles = makeStyles({
 
 const TreeViewCreate = (props) => {
   menuSearch();
+  const classes = useStyles();
   return (    
-    <TreeViewChild data={menu}/>
+    <TreeView
+      className={classes.root}
+      defaultExpanded={['3']}
+      defaultCollapseIcon={<ArrowDropDownIcon />}
+      defaultExpandIcon={<ArrowRightIcon />}
+      defaultEndIcon={<div style={{ width: 24 }} />}
+    >
+    {getTreeItemsFromData(menu)}
+    </TreeView>
   );
 }
 
-const TreeViewChild = (props) => {
-  
-  const data = props.data;
-  return (    
-    data.map((info) => 
-        <StyledTreeItem
-        nodeId={info.id}
-        labelText={info.name}
-        labelIcon={SupervisorAccountIcon}
-        // labelInfo="90"
-        color="#1a73e8"
-        bgColor="#e8f0fe"
-        > 
-          {
-          (info.subcategories.length > 0) ? (
-              <TreeViewChild data={info.subcategories}/>
-            ) : (
-                console.log("")
-            )
-          }
-          
-        </StyledTreeItem>
-    )
-  );
+const handleClick = (link,subcategories) => {
+  console.log(link+"//"+subcategories)
 }
+
+const getTreeItemsFromData = treeItems => {
+  return treeItems.map(treeItemData => {
+    let children,color,bgColor,clickEvent = undefined;
+    let labelIcon = Label;
+    if (treeItemData.subcategories && treeItemData.subcategories.length > 0) {
+      children = getTreeItemsFromData(treeItemData.subcategories);
+      labelIcon = LocalOfferIcon;
+      clickEvent = handleClick;
+    }
+    color = "#a250f5";
+    bgColor = "#f3e8fd";
+
+    return (
+      <StyledTreeItem
+        key={treeItemData.id}
+        nodeId={String(treeItemData.id)}
+        labelText={treeItemData.name}
+        labelIcon={labelIcon}
+        children={children}
+        color={color}
+        bgColor={bgColor}
+        onClick={clickEvent}
+      />
+    );
+  });
+};
 
 function menuSearch() {
   service.search('/blog/category/sel/').then(res => {       
@@ -162,15 +177,8 @@ export default function GmailTreeView() {
   }, []);
 
   return (
-    
-    <TreeView
-      className={classes.root}
-      defaultExpanded={['3']}
-      defaultCollapseIcon={<ArrowDropDownIcon />}
-      defaultExpandIcon={<ArrowRightIcon />}
-      defaultEndIcon={<div style={{ width: 24 }} />}
-    >
-      <TreeViewCreate data={menuData}/>
-    </TreeView>
+    <TreeViewCreate 
+        data={menuData}
+    />
   );
 }
