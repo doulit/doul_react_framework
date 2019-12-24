@@ -125,18 +125,29 @@ const TreeViewCreate = (props) => {
   );
 }
 
-const handleClick = (link,subcategories) => {
-  console.log(link+"//"+subcategories)
+const handleClick = (id,link) => {
+  console.log(id+"//"+link);
+  if(id != undefined){
+    // 메뉴클릭이벤트
+    if(link == undefined || link == null){
+      window.location.href = "#";    
+    }else{
+      // window.location.href = "/";    
+    }
+    
+
+  }
 }
 
 const getTreeItemsFromData = treeItems => {
   return treeItems.map(treeItemData => {
-    let children,color,bgColor,clickEvent = undefined;
+    let children,color,bgColor = undefined;
     let labelIcon = Label;
+    let clickEventId = treeItemData.id;
     if (treeItemData.subcategories && treeItemData.subcategories.length > 0) {
       children = getTreeItemsFromData(treeItemData.subcategories);
       labelIcon = LocalOfferIcon;
-      clickEvent = handleClick;
+      clickEventId = undefined;
     }
     color = "#a250f5";
     bgColor = "#f3e8fd";
@@ -150,7 +161,8 @@ const getTreeItemsFromData = treeItems => {
         children={children}
         color={color}
         bgColor={bgColor}
-        onClick={clickEvent}
+        onClick={() => handleClick(clickEventId,treeItemData.link)}
+        // onClick={() => setItems([...items, items.length])}
       />
     );
   });
